@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->vm.queryDramaList(1)}"
-                android:text="点我试试"
+                android:text="@string/abc_retry"
                 android:textColor="@color/color_000000"
                 android:textSize="16sp"
                 android:visibility="@{vm.empty?View.VISIBLE:View.GONE}"

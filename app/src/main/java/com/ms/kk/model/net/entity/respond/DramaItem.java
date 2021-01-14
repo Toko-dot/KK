@@ -11,6 +11,9 @@ public class DramaItem implements Parcelable {
     private String thumb;
     private String brief;
 
+    public DramaItem() {
+    }
+
     protected DramaItem(Parcel in) {
         _id = in.readInt();
         tid = in.readInt();

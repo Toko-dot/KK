@@ -10,15 +10,21 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 
 import com.ms.kk.R;
 import com.ms.kk.base.BaseActivity;
 import com.ms.kk.base.BaseRVAdapter;
+import com.ms.kk.base.Logger;
 import com.ms.kk.databinding.ActivityMoviePlayBinding;
 import com.ms.kk.model.net.entity.respond.DramaItem;
 import com.ms.kk.model.net.entity.respond.MovieListItem;
+import com.ms.kk.utils.SystemUtils;
 import com.ms.kk.widget.MoviePlayItemItemDecoration;
 
 import cn.jzvd.Jzvd;
@@ -50,9 +56,7 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
     @Override
     public void initView() {
         super.initView();
-//        binding.rvMovie.addItemDecoration(new MoviePlayItemItemDecoration());
-//        binding.rvMovie.setLayoutManager(new GridLayoutManager(this, 4));
-        binding.rvMovie.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+        binding.rvMovie.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapter.setOnItemClickListener(new BaseRVAdapter.OnItemClickListener<MovieListItem>() {
             @Override
             public void onItemClick(MovieListItem data, int pos) {
@@ -65,6 +69,40 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
             }
         });
         binding.rvMovie.setAdapter(adapter);
+
+        binding.tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SystemUtils.showSoftInput(MoviePlayActivity.this);
+            }
+        });
+
+        binding.igPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                binding.getRoot().getWindowVisibleDisplayFrame(rect);
+                final int screenHeight = getWindow().getDecorView().getRootView().getHeight();
+                final int heightDifference = screenHeight - rect.bottom;
+                boolean visible = heightDifference > screenHeight / 3;
+                if (visible) {
+                    Logger.logD("软键盘显示");
+                    binding.llPost.setVisibility(View.VISIBLE);
+                    binding.etPost.requestFocus();
+                    binding.llPost.setY(rect.bottom - binding.llPost.getHeight());
+                } else {
+                    Logger.logD("软键盘隐藏");
+                    binding.llPost.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
     }
 
@@ -108,5 +146,10 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
                 return (T) new MoviePlayViewModel(drama);
             }
         }).get(MoviePlayViewModel.class);
+    }
+
+    @Override
+    protected void onFinishSetContentView() {
+//        super.onFinishSetContentView();
     }
 }

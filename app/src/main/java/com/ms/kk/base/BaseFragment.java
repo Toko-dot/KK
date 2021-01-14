@@ -1,5 +1,10 @@
 package com.ms.kk.base;
 
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,9 +28,7 @@ public abstract class BaseFragment<PVM extends BaseViewModel<?>, VM extends Base
 
             }
         });
-
     }
-
     protected PVM createPViewModel() {
         Class<VM> cls = (Class<VM>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         return (PVM) new ViewModelProvider(getActivity()).get(cls);
@@ -35,6 +38,4 @@ public abstract class BaseFragment<PVM extends BaseViewModel<?>, VM extends Base
         Class<VM> cls = (Class<VM>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         return (VM) new ViewModelProvider(this).get(cls);
     }
-
-
 }

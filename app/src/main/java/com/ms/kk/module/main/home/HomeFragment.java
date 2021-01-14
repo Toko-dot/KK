@@ -1,6 +1,7 @@
 package com.ms.kk.module.main.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,10 @@ import android.view.ViewGroup;
 import com.ms.kk.R;
 import com.ms.kk.base.BaseFragment;
 import com.ms.kk.databinding.FragmentHomeBinding;
+import com.ms.kk.model.net.entity.respond.DramaItem;
 import com.ms.kk.module.main.MainViewModel;
 import com.ms.kk.module.main.home.drama.DramaFragment;
+import com.ms.kk.module.movie.play.MoviePlayActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,6 +56,14 @@ public class HomeFragment extends BaseFragment<MainViewModel, HomeViewModel> {
     @Override
     protected void initView() {
         super.initView();
+        binding.tvSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MoviePlayActivity.class);
+                intent.putExtra("drama", new DramaItem());
+                startActivity(intent);
+            }
+        });
     }
 
     @SuppressLint("FragmentLiveDataObserve")

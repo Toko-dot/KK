@@ -21,6 +21,10 @@ public class DramaViewModel extends BaseViewModel<DramaRepository> {
 
     public MutableLiveData<Void> finishLoadMore = new MutableLiveData<>();
 
+    public MutableLiveData<Void> refreshList=new MutableLiveData<>();
+
+    public MutableLiveData<Void> loadMoreList=new MutableLiveData<>();
+
     public DramaViewModel(int tid) {
         this.tid = tid;
         queryDramaList(1);
@@ -36,9 +40,11 @@ public class DramaViewModel extends BaseViewModel<DramaRepository> {
 
                 if (rPage > 1) {
                     finishLoadMore.setValue(null);
+                    refreshList.setValue(null);
                 } else {
                     empty.set(false);
                     finishRefresh.setValue(null);
+                    loadMoreList.setValue(null);
                 }
 
                 page = rPage;

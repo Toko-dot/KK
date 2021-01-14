@@ -26,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:orientation="horizontal"
+            android:background="@color/color_FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -38,7 +39,7 @@
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:text="首页"
+                android:text="@string/abc_home"
                 android:textColor="@color/selector_text_menu_home" />
 
             <RadioButton
@@ -48,7 +49,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
-                android:text="发现"
+                android:text="@string/abc_discover"
                 android:textColor="@color/selector_text_menu_home" />
 
             <RadioButton
@@ -58,7 +59,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
-                android:text="我"
+                android:text="@string/abc_me"
                 android:textColor="@color/selector_text_menu_home" />
 
 

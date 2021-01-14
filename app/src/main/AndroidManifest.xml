@@ -18,7 +18,7 @@
         <activity android:name=".module.movie.play.MoviePlayActivity"
             android:configChanges="orientation|screenLayout|screenSize|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
         <activity android:name=".module.photo.album.AlbumActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".module.user.age.EditUserAgeActivity"

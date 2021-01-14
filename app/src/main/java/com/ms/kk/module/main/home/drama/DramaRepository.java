@@ -18,7 +18,11 @@ public class DramaRepository extends BaseRepository {
                     @Override
                     protected void handleSuccess(BaseEntity<List<DramaItem>> data) {
                         super.handleSuccess(data);
-                        list.setValue(RepositoryRespond.createSuccess(data.getData()));
+                        if (data.getData()==null||data.getData().size()==0){
+                            list.setValue(RepositoryRespond.createEmpty());
+                        }else {
+                            list.setValue(RepositoryRespond.createSuccess(data.getData()));
+                        }
                     }
 
                     @Override

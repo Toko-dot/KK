@@ -101,13 +101,26 @@ public class DramaFragment extends BaseFragment<MainViewModel, DramaViewModel> i
             @Override
             public void onChanged(Void aVoid) {
                 binding.rvDrama.finishLoading();
+            }
+        });
+
+        viewModel.loadMoreList.observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(Void aVoid) {
                 adapter.loadMore(viewModel.dramaItemList);
             }
         });
+
         viewModel.finishRefresh.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(Void aVoid) {
                 binding.srlDrama.setRefreshing(false);
+            }
+        });
+
+        viewModel.refreshList.observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(Void aVoid) {
                 adapter.refresh(viewModel.dramaItemList);
             }
         });

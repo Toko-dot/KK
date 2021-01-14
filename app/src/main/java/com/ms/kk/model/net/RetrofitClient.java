@@ -11,12 +11,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.ms.kk.constant.Constant.BASE_URL;
+import static com.ms.kk.constant.Constant.BASE_URL_ONLINE;
 import static com.ms.kk.constant.Constant.BASE_URL_TEST;
 
 public class RetrofitClient {
     private static RetrofitClient instance;
     private Retrofit retrofit;
-    public static String BASE_URL = BASE_URL_TEST;
 
     private RetrofitClient() {
         init();

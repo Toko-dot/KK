@@ -27,7 +27,12 @@ public class HomeRepository extends BaseRepository {
         addSource(commonApi.queryType(), new RepositoryObserver<List<Type>>() {
             @Override
             protected void handleSuccess(BaseEntity<List<Type>> data) {
-                typeList.setValue(RepositoryRespond.createSuccess(data.getData()));
+                if (data.getData()==null||data.getData().size()==0){
+                    typeList.setValue(RepositoryRespond.createEmpty());
+                }else {
+                    typeList.setValue(RepositoryRespond.createSuccess(data.getData()));
+                }
+
             }
 
             @Override

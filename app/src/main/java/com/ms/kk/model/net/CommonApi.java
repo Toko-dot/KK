@@ -3,6 +3,7 @@ package com.ms.kk.model.net;
 import androidx.lifecycle.LiveData;
 
 import com.ms.kk.base.ApiRespond;
+import com.ms.kk.model.net.entity.respond.Comment;
 import com.ms.kk.model.net.entity.respond.DramaItem;
 import com.ms.kk.model.net.entity.respond.MovieListItem;
 import com.ms.kk.model.net.entity.respond.Type;
@@ -58,4 +59,12 @@ public interface CommonApi {
     LiveData<ApiRespond<BaseEntity<List<MovieListItem>>>> queryPlayList(@Field("pid") int pid);
 
 
+    @POST("comment/add")
+    @FormUrlEncoded
+    LiveData<ApiRespond<BaseEntity<Object>>> addComment(@Field("uid") int uid, @Field("mid") int mid, @Field("text") String text);
+
+
+    @POST("comment/query/list")
+    @FormUrlEncoded
+    LiveData<ApiRespond<BaseEntity<List<Comment>>>> queryCommentList(@Field("mid") int mid, @Field("page") int page);
 }

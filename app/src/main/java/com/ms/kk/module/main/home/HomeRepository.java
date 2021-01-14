@@ -14,32 +14,32 @@ public class HomeRepository extends BaseRepository {
     MutableLiveData<RepositoryRespond<List<Type>>> typeList = new MutableLiveData<>();
 
     public void queryTypeList() {
-        ArrayList<Type> types = new ArrayList<>();
-        for (int i=0;i<10;i++){
-            Type type = new Type();
-            type.set_id(i);
-            type.setType("类型"+i);
-            types.add(type);
-        }
-        typeList.setValue(RepositoryRespond.createSuccess(types));
+//        ArrayList<Type> types = new ArrayList<>();
+//        for (int i=0;i<10;i++){
+//            Type type = new Type();
+//            type.set_id(i);
+//            type.setType("类型"+i);
+//            types.add(type);
+//        }
+//        typeList.setValue(RepositoryRespond.createSuccess(types));
 
 
-//        addSource(commonApi.queryType(), new RepositoryObserver<List<Type>>() {
-//            @Override
-//            protected void handleSuccess(BaseEntity<List<Type>> data) {
-//                typeList.setValue(RepositoryRespond.createSuccess(data.getData()));
-//            }
-//
-//            @Override
-//            protected void handleError(int httpCode, String extra) {
-//                typeList.setValue(RepositoryRespond.createError(extra, httpCode));
-//            }
-//
-//            @Override
-//            protected void handleEmpty() {
-//                typeList.setValue(RepositoryRespond.createEmpty());
-//            }
-//        });
+        addSource(commonApi.queryType(), new RepositoryObserver<List<Type>>() {
+            @Override
+            protected void handleSuccess(BaseEntity<List<Type>> data) {
+                typeList.setValue(RepositoryRespond.createSuccess(data.getData()));
+            }
+
+            @Override
+            protected void handleError(int httpCode, String extra) {
+                typeList.setValue(RepositoryRespond.createError(extra, httpCode));
+            }
+
+            @Override
+            protected void handleEmpty() {
+                typeList.setValue(RepositoryRespond.createEmpty());
+            }
+        });
     }
 
 

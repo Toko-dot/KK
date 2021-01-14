@@ -37,12 +37,11 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
     private ActivityMoviePlayBinding binding;
     private DramaItem drama;
     private MoviePlayListAdapter adapter = new MoviePlayListAdapter();
+    private CommentListAdapter commentListAdapter = new CommentListAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_play);
         obtainIntentData();
         initView();
@@ -66,21 +65,18 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
                 binding.viewPlay.setUp(data.getPlay(), data.getName());
 
                 binding.viewPlay.startVideo();
+
+                viewModel.currentMovie.setValue(data);
             }
         });
         binding.rvMovie.setAdapter(adapter);
+
+        binding.rvComment.setAdapter(commentListAdapter);
 
         binding.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SystemUtils.showSoftInput(MoviePlayActivity.this);
-            }
-        });
-
-        binding.igPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 
@@ -109,15 +105,33 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
     @Override
     public void initViewModel() {
         super.initViewModel();
-        viewModel.querySuccess.observe(this, new Observer<Void>() {
+        viewModel.queryPlayListSuccess.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(Void aVoid) {
-                adapter.refresh(viewModel.dramaItemList);
-                binding.viewPlay.setUp(viewModel.dramaItemList.get(0).getPlay(), viewModel.dramaItemList.get(0).getName());
+                adapter.refresh(viewModel.movieItemList);
+                binding.viewPlay.setUp(viewModel.movieItemList.get(0).getPlay(), viewModel.movieItemList.get(0).getName());
                 binding.viewPlay.startVideo();
                 adapter.setSelect(0);
+                viewModel.currentMovie.setValue(viewModel.movieItemList.get(0));
+
             }
         });
+
+        viewModel.currentMovie.observe(this, new Observer<MovieListItem>() {
+            @Override
+            public void onChanged(MovieListItem movieListItem) {
+                viewModel.queryCommentList();
+            }
+        });
+
+
+        viewModel.queryCommentListSuccess.observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(Void aVoid) {
+                commentListAdapter.refresh(viewModel.commentItemList);
+            }
+        });
+
 
         binding.setVm(viewModel);
     }

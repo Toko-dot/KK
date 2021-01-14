@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.ms.kk.utils.SystemUtils"/>
+
+        <import type="com.ms.kk.utils.SystemUtils" />
+
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.ms.kk.module.movie.play.MoviePlayViewModel" />
@@ -25,60 +29,132 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_name"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@{vm.dramaItem.name}"
-            android:textColor="@color/color_000000"
-            android:textSize="20sp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/guid_he_40"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_play" />
+            app:layout_constraintTop_toBottomOf="@id/view_play">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{vm.dramaItem.name}"
+                    android:textColor="@color/color_000000"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
-            android:id="@+id/tv_brief"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:maxLines="5"
-            android:text="@{vm.dramaItem.brief}"
-            android:textColor="@color/color_333333"
-            android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+                <TextView
+                    android:id="@+id/tv_brief"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="5"
+                    android:text="@{vm.dramaItem.brief}"
+                    android:textColor="@color/color_333333"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
 
-        <TextView
-            android:id="@+id/tv_drama"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:text="集数"
-            android:textColor="@color/color_333333"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_brief" />
+                <TextView
+                    android:id="@+id/tv_drama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="播放列表"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_brief" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_movie"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_drama" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_movie"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="40dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_drama" />
+
+
+                <TextView
+                    android:id="@+id/tv_comment_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="最新评论"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_movie" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="80dp"
+                    android:visibility="@{vm.commentListError?View.INVISIBLE:View.VISIBLE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_comment_title" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="暂无评论"
+                    android:visibility="@{vm.commentListError?View.VISIBLE:View.GONE}"
+                    app:layout_constraintLeft_toLeftOf="@id/rv_comment"
+                    app:layout_constraintRight_toRightOf="@id/rv_comment"
+                    app:layout_constraintTop_toTopOf="@id/rv_comment" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="查看更多"
+                    android:textColor="@color/color_777777"
+                    android:textSize="14sp"
+                    android:visibility="@{vm.commentListError?View.INVISIBLE:View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/rv_comment"
+                    app:layout_constraintRight_toRightOf="@id/rv_comment"
+                    app:layout_constraintTop_toBottomOf="@id/rv_comment" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -152,6 +228,7 @@
             android:id="@+id/ll_post"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/color_FFFFFF"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="20dp"
@@ -171,6 +248,7 @@
                 android:maxLength="64"
                 android:paddingHorizontal="5dp"
                 android:singleLine="true"
+                android:text="@={vm.postComment}"
                 android:textSize="14sp" />
 
             <ImageView
@@ -178,6 +256,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:onClick="@{()->vm.addComment()}"
                 android:src="@drawable/ic_post" />
 
 

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="pvm"
+            type="com.ms.kk.module.main.MainViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".module.main.me.MeFragment">
+
+        <ImageView
+            android:id="@+id/ig_avatar"
+            avatar="@{pvm.userInfo.avatar}"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_default_avatar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:singleLine="true"
+            android:text='@{pvm.userInfo.name==null?@string/abc_unknown_user_name:pvm.userInfo.name}'
+            android:textColor="@color/color_000000"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@id/ig_avatar"
+            app:layout_constraintTop_toTopOf="@id/ig_avatar" />
+
+        <TextView
+            android:id="@+id/tv_user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:text="@{@string/abc_uid+String.valueOf(pvm.userInfo.uid)}"
+            android:textColor="@color/color_777777"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toRightOf="@id/ig_avatar"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/abc_goto_login"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/ig_avatar"
+            app:layout_constraintLeft_toRightOf="@id/ig_avatar"
+            app:layout_constraintTop_toTopOf="@id/ig_avatar" />
+
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{pvm.userInfo==null?View.INVISIBLE:View.VISIBLE}"
+            app:constraint_referenced_ids="tv_logout,tv_edit_info,tv_user_id,tv_user_name" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{pvm.userInfo==null?View.VISIBLE:View.INVISIBLE}"
+            app:constraint_referenced_ids="tv_login" />
+
+        <TextView
+            android:id="@+id/tv_edit_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="编辑资料"
+            android:textColor="@color/color_000000"
+            android:textSize="14sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ig_avatar" />
+
+        <ImageView
+            android:id="@+id/ig_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_setting"
+            android:textColor="@color/color_000000"
+            app:layout_constraintBottom_toBottomOf="@id/ig_avatar"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ig_avatar">
+
+            <RadioButton
+                android:id="@+id/rb_see"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:text="浏览记录"
+                android:textColor="@color/selector_text_menu_me"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rb_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:button="@null"
+                android:text="我的收藏"
+                android:textColor="@color/selector_text_menu_me"
+                android:textSize="14sp" />
+
+        </RadioGroup>
+
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/rg"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rg" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

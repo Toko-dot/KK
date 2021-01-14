@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="vm"
+            type="com.ms.kk.module.login.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".module.login.LoginActivity">
+
+        <ImageView
+            android:id="@+id/ig_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:onClick="onFinish"
+            app:layout_constraintBottom_toBottomOf="@id/ig_back"
+            app:layout_constraintLeft_toLeftOf="@id/ig_back"
+            app:layout_constraintRight_toRightOf="@id/ig_back"
+            app:layout_constraintTop_toTopOf="@id/ig_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:text="@string/abc_login_title"
+            android:textColor="#ff000000"
+            android:textSize="25sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_account"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="200dp"
+            android:digits="@string/abc_account_digits"
+            android:hint="账号"
+            android:inputType="textEmailAddress"
+            android:text="@={vm.account}"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:maxLength="15"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="20dp"
+            android:digits="@string/abc_pwd_digits"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:text="@={vm.pwd}"
+            android:maxLength="15"
+            android:singleLine="true"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_account" />
+
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="20dp"
+            android:background='@{vm.canLogin?@color/color_0099FF:@color/color_CCCCCC}'
+            android:clickable="@{vm.canLogin?true:false}"
+            android:onClick="@{()->vm.login()}"
+            android:text="@string/abc_login"
+            android:textColor="@{vm.canLogin?@color/color_FFFFFF:@color/color_000000}"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_pwd" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:onClick="onRegister"
+            android:text="@string/abc_register_account"
+            android:textColor="@color/color_0099FF"
+            app:layout_constraintRight_toRightOf="@id/btn_login"
+            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

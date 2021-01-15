@@ -40,11 +40,11 @@ public class DramaViewModel extends BaseViewModel<DramaRepository> {
 
                 if (rPage > 1) {
                     finishLoadMore.setValue(null);
-                    refreshList.setValue(null);
+                    loadMoreList.setValue(null);
                 } else {
                     empty.set(false);
                     finishRefresh.setValue(null);
-                    loadMoreList.setValue(null);
+                    refreshList.setValue(null);
                 }
 
                 page = rPage;

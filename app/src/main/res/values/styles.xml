@@ -8,4 +8,9 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="TabLayoutStyle">
+        <item name="android:textSize">@dimen/dimen_16sp</item>
+    </style>
+
+
 </resources>

@@ -16,7 +16,7 @@
         android:networkSecurityConfig="@xml/network"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".module.AboutUsActivity"></activity>
+        <activity android:name=".module.about.AboutUsActivity"></activity>
         <activity android:name=".module.setting.SettingActivity" />
         <activity android:name=".module.search.SearchActivity" />
         <activity

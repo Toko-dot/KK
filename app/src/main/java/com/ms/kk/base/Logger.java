@@ -6,7 +6,7 @@ import android.util.Log;
 import com.ms.kk.BuildConfig;
 
 public class Logger {
-    private  static  final String TAG="MeseLog";
+    private  static  final String TAG="KK-LOG";
     public static void logD(String tag, String msg) {
         if (!BuildConfig.DEBUG)
             return;

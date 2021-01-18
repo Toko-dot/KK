@@ -66,7 +66,6 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
     public void initView() {
         super.initView();
         binding.rvMovie.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        binding.viewPlay.setUp("https://shuixian.nihaozuida.com/20201215/13322_a9536e70/index.m3u8", "");
         adapter.setOnItemClickListener(new BaseRVAdapter.OnItemClickListener<MovieListItem>() {
             @Override
             public void onItemClick(MovieListItem data, int pos) {

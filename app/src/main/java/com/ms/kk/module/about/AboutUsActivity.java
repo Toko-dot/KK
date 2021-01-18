@@ -1,4 +1,4 @@
-package com.ms.kk.module;
+package com.ms.kk.module.about;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

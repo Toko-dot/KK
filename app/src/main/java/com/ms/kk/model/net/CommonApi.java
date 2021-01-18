@@ -85,4 +85,15 @@ public interface CommonApi {
     @POST("version/query")
     LiveData<ApiRespond<BaseEntity<Version>>> queryVersion();
 
+
+    @POST("drama/add")
+    @FormUrlEncoded
+    LiveData<ApiRespond<BaseEntity<Object>>> addDrama(@Field("type") String type, @Field("name") String name, @Field("thumb") String thumb,@Field("brief")String brief);
+
+
+    @POST("movie/add")
+    @FormUrlEncoded
+    LiveData<ApiRespond<BaseEntity<Object>>> addMovie(@Field("pName") String pName, @Field("name") String name, @Field("play") String play,@Field("thumb")String thumb);
+
+
 }

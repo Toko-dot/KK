@@ -11,14 +11,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.Observer;
 
 import com.ms.kk.R;
 import com.ms.kk.base.BaseActivity;
 import com.ms.kk.databinding.ActivityMainBinding;
+import com.ms.kk.model.net.entity.respond.Version;
 import com.ms.kk.module.login.LoginActivity;
 import com.ms.kk.module.main.discover.DiscoverFragment;
 import com.ms.kk.module.main.home.HomeFragment;
 import com.ms.kk.module.main.me.MeFragment;
+import com.ms.kk.utils.SystemUtils;
 
 public class MainActivity extends BaseActivity<MainViewModel> {
 
@@ -106,6 +109,14 @@ public class MainActivity extends BaseActivity<MainViewModel> {
     public void initViewModel() {
         super.initViewModel();
 
+        viewModel.version.observe(this, new Observer<Version>() {
+            @Override
+            public void onChanged(Version version) {
+                if (!SystemUtils.getVersionName(MainActivity.this).equals(version.getVersion())) {
+                    showDownloadDialog(version.getApk());
+                }
+            }
+        });
 
     }
 }

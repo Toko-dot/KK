@@ -119,6 +119,11 @@ public abstract class BaseViewModel<R extends BaseRepository> extends ViewModel 
         protected void handleEmpty() {
 
         }
+
+        @Override
+        protected void handleRequestEnd() {
+
+        }
     }
 
     public static abstract class ViewModelObserver<D> implements Observer<RepositoryRespond<D>> {
@@ -137,13 +142,15 @@ public abstract class BaseViewModel<R extends BaseRepository> extends ViewModel 
                     } else {
                         handleSuccess(data);
                     }
-
+                    handleRequestEnd();
                     break;
                 case ERROR:
                     handleError(dRepositoryRespond.extra, dRepositoryRespond.what);
+                    handleRequestEnd();
                     break;
                 case EMPTY:
                     handleEmpty();
+                    handleRequestEnd();
                     break;
             }
 
@@ -157,7 +164,7 @@ public abstract class BaseViewModel<R extends BaseRepository> extends ViewModel 
 
         protected abstract void handleEmpty();
 
-
+        protected abstract void handleRequestEnd();
     }
 
 

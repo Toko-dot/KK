@@ -9,6 +9,7 @@ import com.ms.kk.model.net.entity.respond.MovieListItem;
 import com.ms.kk.model.net.entity.respond.Type;
 import com.ms.kk.model.net.entity.respond.BaseEntity;
 import com.ms.kk.model.net.entity.respond.LoginInfo;
+import com.ms.kk.model.net.entity.respond.Version;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public interface CommonApi {
 
     @POST("drama/query/list")
     @FormUrlEncoded
-    LiveData<ApiRespond<BaseEntity<List<DramaItem>>>> queryDramaList(@Field("tid") int tid, @Field("page") int page);
+    LiveData<ApiRespond<BaseEntity<List<DramaItem>>>> queryDramaList(@Field("tid") int tid, @Field("start") int start);
 
 
     @POST("movie/query/list")
@@ -66,5 +67,22 @@ public interface CommonApi {
 
     @POST("comment/query/list")
     @FormUrlEncoded
-    LiveData<ApiRespond<BaseEntity<List<Comment>>>> queryCommentList(@Field("mid") int mid, @Field("page") int page);
+    LiveData<ApiRespond<BaseEntity<List<Comment>>>> queryCommentList(@Field("mid") int mid, @Field("start") int start);
+
+    @POST("drama/search")
+    @FormUrlEncoded
+    LiveData<ApiRespond<BaseEntity<List<DramaItem>>>> search(@Field("search") String tid, @Field("start") int start);
+
+
+    @POST("drama/searchWithUid")
+    @FormUrlEncoded
+    LiveData<ApiRespond<BaseEntity<List<DramaItem>>>> search(@Field("uid") int uid,@Field("search") String tid, @Field("start") int start);
+
+
+    @POST("drama/search/hot")
+    LiveData<ApiRespond<BaseEntity<String>>> querySearchHot();
+
+    @POST("version/query")
+    LiveData<ApiRespond<BaseEntity<Version>>> queryVersion();
+
 }

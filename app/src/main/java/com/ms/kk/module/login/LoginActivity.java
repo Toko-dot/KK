@@ -19,6 +19,16 @@ import com.ms.kk.base.Logger;
 import com.ms.kk.databinding.ActivityLoginBinding;
 import com.ms.kk.module.register.RegisterActivity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class LoginActivity extends BaseActivity<LoginViewModel> {
 
     private ActivityLoginBinding binding;
@@ -57,4 +67,5 @@ public class LoginActivity extends BaseActivity<LoginViewModel> {
     public void onFinish(View view) {
         finish();
     }
+
 }

@@ -50,6 +50,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="@string/abc_discover"
+                android:visibility="gone"
                 android:textColor="@color/selector_text_menu_home" />
 
             <RadioButton

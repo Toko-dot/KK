@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.ms.kk.module.main.home.drama.DramaViewModel" />
@@ -21,14 +23,45 @@
 
             <com.ms.kk.widget.ZyRecycleView
                 android:id="@+id/rv_drama"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                canLoadMore="@{!vm.noMore}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_bottom"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@{vm.noMore?@string/none_more:@string/load_more}"-->
+<!--                android:textColor="@color/color_000000"-->
+<!--                android:textSize="14sp"-->
+<!--                android:visibility="@{vm.noMore?View.VISIBLE:View.GONE}"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent" />-->
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->vm.queryDramaList(1)}"
+                android:onClick="@{()->vm.queryDramaList(0)}"
                 android:text="@string/abc_retry"
+                android:textColor="@color/color_000000"
+                android:textSize="16sp"
+                android:visibility="@{vm.error?View.VISIBLE:View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.queryDramaList(0)}"
+                android:text="暂无内容"
                 android:textColor="@color/color_000000"
                 android:textSize="16sp"
                 android:visibility="@{vm.empty?View.VISIBLE:View.GONE}"

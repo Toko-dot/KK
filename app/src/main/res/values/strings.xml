@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KanKan</string>
+    <string name="app_name">KK</string>
     <string name="abc_login">登录</string>
     <string name="abc_register_account">创建新账号</string>
     <string name="abc_login_title">登录后更精彩</string>
@@ -23,5 +23,8 @@
     <string name="abc_discover">发现</string>
     <string name="abc_me">我</string>
     <string name="abc_retry">点我试试</string>
-
+    <string name="search_hint">输入关键词</string>
+    <string name="load_more">查看更多</string>
+    <string name="none_more">没有更多了</string>
+    <string name="about_us">本软件不得用于商业用途，仅用做学习交流。\n Copyright © 2020 KK. </string>
 </resources>

@@ -66,8 +66,9 @@ public class MoviePlayRepository extends BaseRepository {
     }
 
 
-    public void queryCommentList(int mid,int page) {
-        addSource(commonApi.queryCommentList(mid,page), new SimpleRepositoryObserver<List<Comment>>() {
+    public void queryCommentList(int mid,int start) {
+        commentList.setValue(RepositoryRespond.createInit());
+        addSource(commonApi.queryCommentList(mid,start), new SimpleRepositoryObserver<List<Comment>>() {
                     @Override
                     protected void handleSuccess(BaseEntity<List<Comment>> data) {
                         super.handleSuccess(data);

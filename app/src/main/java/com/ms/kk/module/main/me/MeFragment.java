@@ -13,15 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ms.kk.R;
+import com.ms.kk.base.BaseActivity;
 import com.ms.kk.base.BaseFragment;
 import com.ms.kk.constant.MKey;
 import com.ms.kk.databinding.FragmentMeBinding;
 import com.ms.kk.module.login.LoginActivity;
 import com.ms.kk.module.main.MainViewModel;
+import com.ms.kk.module.setting.SettingActivity;
 import com.ms.kk.module.user.UserInfoActivity;
 import com.tencent.mmkv.MMKV;
 
 import static com.ms.kk.module.login.LoginActivity.CODE_LOGIN;
+import static com.ms.kk.module.setting.SettingActivity.SETTING_CODE;
 import static com.ms.kk.module.user.UserInfoActivity.CODE_EDIT_USER;
 
 /**
@@ -61,9 +64,7 @@ public class MeFragment extends BaseFragment<MainViewModel, MeViewModel> {
         binding.igSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                MMKV.defaultMMKV().putString(MKey.KEY_USER_INFO, "").commit();
-//                MMKV.defaultMMKV().putString(MKey.KEY_TOKEN, "").commit();
-//                pViewModel.queryUserInfo();
+                startActivityForResult(new Intent(getContext(), SettingActivity.class), SETTING_CODE);
             }
         });
 

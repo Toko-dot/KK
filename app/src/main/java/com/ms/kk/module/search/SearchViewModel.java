@@ -1,16 +1,19 @@
-package com.ms.kk.module.main.home.drama;
+package com.ms.kk.module.search;
 
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ms.kk.base.BaseViewModel;
 import com.ms.kk.model.net.entity.respond.DramaItem;
+import com.ms.kk.model.net.entity.respond.LoginInfo;
 
 import java.util.List;
 
-public class DramaViewModel extends BaseViewModel<DramaRepository> {
-    private int tid;
-    public int dramaCount = 0;
+public class SearchViewModel extends BaseViewModel<SearchRepository> {
+    public ObservableField<String> postSearch = new ObservableField<>();
+    public ObservableField<String> searchHot = new ObservableField<>();
+    public int dramaComment = 0;
     public int rStart = -1;
 
     public List<DramaItem> dramaItemList;
@@ -23,18 +26,27 @@ public class DramaViewModel extends BaseViewModel<DramaRepository> {
 
     public MutableLiveData<Void> finishRequestList = new MutableLiveData<>();
 
+    public MutableLiveData<Void> finishLoadMore = new MutableLiveData<>();
+
     public MutableLiveData<Void> refreshList = new MutableLiveData<>();
 
     public MutableLiveData<Void> loadMoreList = new MutableLiveData<>();
 
-    public DramaViewModel(int tid) {
-        this.tid = tid;
-        queryDramaList(0);
+    public SearchViewModel() {
+        repository.querySearchHot();
     }
 
     @Override
     protected void registerObserver() {
-        addSource(repository.list, new SimpleViewModelObserver<List<DramaItem>>() {
+        addSource(repository.searchHot, new SimpleViewModelObserver<String>() {
+            @Override
+            protected void handleSuccess(String data) {
+                super.handleSuccess(data);
+                searchHot.set(data);
+            }
+        });
+
+        addSource(repository.searchList, new SimpleViewModelObserver<List<DramaItem>>() {
             @Override
             protected void handleInit() {
                 super.handleInit();
@@ -48,28 +60,27 @@ public class DramaViewModel extends BaseViewModel<DramaRepository> {
                 dramaItemList = data;
                 if (rStart > 0) {
                     loadMoreList.setValue(null);
-                    dramaCount += data.size();
+                    dramaComment += data.size();
                 } else {
                     refreshList.setValue(null);
-                    dramaCount = data.size();
+                    dramaComment = data.size();
                 }
             }
 
             @Override
             protected void handleError(String extra, int what) {
-                if (rStart == 0) {//刷新错误
+                if (rStart == 0) {
                     error.set(true);
-                    refreshList.setValue(null);
-                    dramaCount = 0;
                 }
             }
 
             @Override
             protected void handleEmpty() {
-                if (rStart == 0) {//没有数据
-                    empty.set(true);
+                if (rStart == 0) {
+                    dramaItemList = null;
+                    dramaComment = 0;
                     refreshList.setValue(null);
-                    dramaCount = 0;
+                    empty.set(true);
                 } else {
                     noMore.set(true);
                 }
@@ -84,13 +95,18 @@ public class DramaViewModel extends BaseViewModel<DramaRepository> {
         });
     }
 
-    public void queryDramaList(int start) {
+
+    public void search(int start) {
         if (rStart != -1) {
-            finishRequestList.setValue(null);
+            finishLoadMore.setValue(null);
             return;
         }
         rStart = start;
-        repository.queryDramaList(tid, start);
+        LoginInfo loginInfo = userInfo.get();
+        if (loginInfo == null) {
+            repository.search(postSearch.get(), start);
+        } else {
+            repository.search(loginInfo.getUid(), postSearch.get(), start);
+        }
     }
-
 }

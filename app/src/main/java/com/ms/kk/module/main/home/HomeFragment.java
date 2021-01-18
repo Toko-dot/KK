@@ -21,6 +21,7 @@ import com.ms.kk.model.net.entity.respond.DramaItem;
 import com.ms.kk.module.main.MainViewModel;
 import com.ms.kk.module.main.home.drama.DramaFragment;
 import com.ms.kk.module.movie.play.MoviePlayActivity;
+import com.ms.kk.module.search.SearchActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -56,12 +57,12 @@ public class HomeFragment extends BaseFragment<MainViewModel, HomeViewModel> {
     @Override
     protected void initView() {
         super.initView();
-        binding.tvSign.setOnClickListener(new View.OnClickListener() {
+     
+
+        binding.tvSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MoviePlayActivity.class);
-                intent.putExtra("drama", new DramaItem());
-                startActivity(intent);
+                startActivity(new Intent(getContext(), SearchActivity.class));
             }
         });
     }

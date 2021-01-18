@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.ms.kk.R;
 import com.ms.kk.base.BaseRVAdapter;
@@ -29,6 +30,8 @@ public class AlbumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         binding = ((ActivityAlbumBinding) DataBindingUtil.setContentView(this, R.layout.activity_album));
         initView();
     }

@@ -13,7 +13,7 @@ public class DramaRepository extends BaseRepository {
     MutableLiveData<RepositoryRespond<List<DramaItem>>> list = new MutableLiveData<>();
 
     public void queryDramaList(int tid, int page) {
-
+        list.setValue(RepositoryRespond.createInit());
         addSource(commonApi.queryDramaList(tid, page), new SimpleRepositoryObserver<List<DramaItem>>() {
                     @Override
                     protected void handleSuccess(BaseEntity<List<DramaItem>> data) {

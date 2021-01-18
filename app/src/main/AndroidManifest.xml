@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".App"
@@ -15,24 +16,35 @@
         android:networkSecurityConfig="@xml/network"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".module.movie.play.MoviePlayActivity"
+        <activity android:name=".module.AboutUsActivity"></activity>
+        <activity android:name=".module.setting.SettingActivity" />
+        <activity android:name=".module.search.SearchActivity" />
+        <activity
+            android:name=".module.movie.play.MoviePlayActivity"
             android:configChanges="orientation|screenLayout|screenSize|layoutDirection"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
-        <activity android:name=".module.photo.album.AlbumActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.age.EditUserAgeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.sex.EditUserSexActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.name.EditUserNameActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".module.user.UserInfoActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".module.register.RegisterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".module.login.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".module.photo.album.AlbumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.user.age.EditUserAgeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.user.sex.EditUserSexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.user.name.EditUserNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.user.UserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.register.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.login.LoginActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="design_width_in_dp"
@@ -45,6 +57,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.ms.kk.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

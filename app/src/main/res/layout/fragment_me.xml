@@ -19,15 +19,37 @@
         android:background="@color/color_FFFFFF"
         tools:context=".module.main.me.MeFragment">
 
+        <androidx.constraintlayout.widget.Guideline
+
+            android:id="@+id/guid_hs_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="30dp" />
+
+
+        <ImageView
+            android:id="@+id/ig_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_setting"
+            android:textColor="@color/color_000000"
+            app:layout_constraintBottom_toBottomOf="@id/guid_hs_30"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <ImageView
             android:id="@+id/ig_avatar"
             avatar="@{pvm.userInfo.avatar}"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_default_avatar"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/guid_hs_30" />
 
         <TextView
             android:id="@+id/tv_user_name"
@@ -71,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{pvm.userInfo==null?View.INVISIBLE:View.VISIBLE}"
-            app:constraint_referenced_ids="tv_logout,tv_edit_info,tv_user_id,tv_user_name" />
+            app:constraint_referenced_ids="tv_edit_info,tv_user_id,tv_user_name" />
 
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
@@ -90,23 +112,15 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/ig_avatar" />
 
-        <ImageView
-            android:id="@+id/ig_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_setting"
-            android:textColor="@color/color_000000"
-            app:layout_constraintBottom_toBottomOf="@id/ig_avatar"
-            app:layout_constraintRight_toRightOf="parent" />
 
         <RadioGroup
             android:id="@+id/rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ig_avatar">

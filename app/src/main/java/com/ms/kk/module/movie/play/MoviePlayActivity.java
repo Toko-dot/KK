@@ -12,12 +12,14 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
@@ -33,6 +35,7 @@ import com.ms.kk.model.net.entity.respond.DramaItem;
 import com.ms.kk.model.net.entity.respond.MovieListItem;
 import com.ms.kk.utils.SystemUtils;
 import com.ms.kk.widget.MoviePlayItemItemDecoration;
+import com.ms.kk.widget.ZyRecycleView;
 
 import cn.jzvd.Jzvd;
 import cn.jzvd.JzvdStd;
@@ -63,7 +66,7 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
     public void initView() {
         super.initView();
         binding.rvMovie.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        binding.viewPlay.setUp("https://shuixian.nihaozuida.com/20201215/13322_a9536e70/index.m3u8","");
+        binding.viewPlay.setUp("https://shuixian.nihaozuida.com/20201215/13322_a9536e70/index.m3u8", "");
         adapter.setOnItemClickListener(new BaseRVAdapter.OnItemClickListener<MovieListItem>() {
             @Override
             public void onItemClick(MovieListItem data, int pos) {
@@ -79,14 +82,9 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
         });
         binding.rvMovie.setAdapter(adapter);
 
+
         binding.rvComment.setAdapter(commentListAdapter);
 
-        binding.tvEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SystemUtils.showSoftInput(MoviePlayActivity.this);
-            }
-        });
 
         getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -96,10 +94,10 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
                 final int screenHeight = getWindow().getDecorView().getRootView().getHeight();
                 final int heightDifference = screenHeight - rect.bottom;
                 boolean visible = heightDifference > screenHeight / 3;
-                if (visible) {
+                if (isSoftKeyBoardShow()) {
                     binding.llPost.setVisibility(View.VISIBLE);
                     binding.etPost.requestFocus();
-                    binding.llPost.setY(rect.bottom - binding.llPost.getHeight());
+                    binding.llPost.setY(rect.height() - binding.llPost.getHeight());
                 } else {
                     binding.llPost.setVisibility(View.INVISIBLE);
                 }
@@ -125,18 +123,24 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
         viewModel.currentMovie.observe(this, new Observer<MovieListItem>() {
             @Override
             public void onChanged(MovieListItem movieListItem) {
-                viewModel.queryCommentList();
+                viewModel.queryCommentList(0);
             }
         });
 
 
-        viewModel.queryCommentListSuccess.observe(this, new Observer<Void>() {
+        viewModel.refreshComment.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(Void aVoid) {
                 commentListAdapter.refresh(viewModel.commentItemList);
             }
         });
 
+        viewModel.loadMoreComment.observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(Void aVoid) {
+                commentListAdapter.loadMore(viewModel.commentItemList);
+            }
+        });
 
         binding.setVm(viewModel);
     }
@@ -178,7 +182,7 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
     }
 
 
-    public void onShowBrief(View v){
+    public void onShowBrief(View v) {
 
         BottomSheetDialog dialog = new BottomSheetDialog(this);
 
@@ -192,4 +196,35 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
         dialog.show();
     }
 
+    public void onShowAllPlayList(View v) {
+
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_movie_play_list, null);
+
+        RecyclerView rv_movie = (RecyclerView) view.findViewById(R.id.rv_movie);
+
+        rv_movie.setLayoutManager(new GridLayoutManager(this, 4));
+
+        rv_movie.setAdapter(adapter);
+
+
+        dialog.setContentView(view);
+
+        dialog.show();
+
+    }
+
+    public void onEditComment(View view) {
+        SystemUtils.showSoftInput(MoviePlayActivity.this);
+    }
+
+    @Override
+    protected boolean isHideSoftInput(MotionEvent ev) {
+        if (ev.getY() > binding.llPost.getY()) {
+            return false;
+        }
+
+        return super.isHideSoftInput(ev);
+    }
 }

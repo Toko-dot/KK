@@ -97,10 +97,11 @@ public class DramaFragment extends BaseFragment<MainViewModel, DramaViewModel> i
     @Override
     protected void initViewModel() {
         super.initViewModel();
-        viewModel.finishLoadMore.observe(this, new Observer<Void>() {
+        viewModel.finishRequestList.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(Void aVoid) {
-                binding.rvDrama.finishLoading();
+                binding.rvDrama.setLoading(false);
+                binding.srlDrama.setRefreshing(false);
             }
         });
 
@@ -111,29 +112,23 @@ public class DramaFragment extends BaseFragment<MainViewModel, DramaViewModel> i
             }
         });
 
-        viewModel.finishRefresh.observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(Void aVoid) {
-                binding.srlDrama.setRefreshing(false);
-            }
-        });
-
         viewModel.refreshList.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(Void aVoid) {
                 adapter.refresh(viewModel.dramaItemList);
             }
         });
+
         binding.setVm(viewModel);
     }
 
     @Override
     public void onLoadMore() {
-        viewModel.queryDramaList(viewModel.page + 1);
+        viewModel.queryDramaList(viewModel.dramaCount);
     }
 
     @Override
     public void onRefresh() {
-        viewModel.queryDramaList(1);
+        viewModel.queryDramaList(0);
     }
 }

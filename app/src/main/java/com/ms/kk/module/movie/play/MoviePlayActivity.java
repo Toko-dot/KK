@@ -35,6 +35,7 @@ import com.ms.kk.model.net.entity.respond.DramaItem;
 import com.ms.kk.model.net.entity.respond.MovieListItem;
 import com.ms.kk.utils.SystemUtils;
 import com.ms.kk.widget.MoviePlayItemItemDecoration;
+import com.ms.kk.widget.MyJzvdStd;
 import com.ms.kk.widget.ZyRecycleView;
 
 import cn.jzvd.Jzvd;
@@ -42,7 +43,7 @@ import cn.jzvd.JzvdStd;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
-public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
+public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> implements MyJzvdStd.OnNextViewListener {
 
     private ActivityMoviePlayBinding binding;
     private DramaItem drama;
@@ -111,7 +112,10 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
         viewModel.queryPlayListSuccess.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(Void aVoid) {
+
                 adapter.refresh(viewModel.movieItemList);
+
+                binding.viewPlay.setOnNextViewListener(MoviePlayActivity.this);
                 binding.viewPlay.setUp(viewModel.movieItemList.get(0).getPlay(), viewModel.movieItemList.get(0).getName());
                 binding.viewPlay.startVideo();
                 adapter.setSelect(0);
@@ -210,8 +214,10 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
 
         dialog.setContentView(view);
 
+
         dialog.show();
 
+        dialog.getBehavior().setPeekHeight(SystemUtils.dp2px(this, 375));
     }
 
     public void onEditComment(View view) {
@@ -225,5 +231,27 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> {
         }
 
         return super.isHideSoftInput(ev);
+    }
+
+    @Override
+    public void onNextVideo() {
+        if (viewModel.movieItemList == null)
+            return;
+        int select = adapter.getSelect();
+        select++;
+        if (select >= viewModel.movieItemList.size()) {
+            showToast("已经是最后一集了");
+            return;
+        }
+
+        adapter.setSelect(select);
+
+        MovieListItem data = viewModel.movieItemList.get(select);
+
+        binding.viewPlay.setUp(data.getPlay(), data.getName());
+
+        binding.viewPlay.startVideo();
+
+        viewModel.currentMovie.setValue(data);
     }
 }

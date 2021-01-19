@@ -19,6 +19,10 @@ public class MoviePlayListAdapter extends BaseRVAdapter<MovieListItem, BaseRVAda
         notifyDataSetChanged();
     }
 
+    public int getSelect() {
+        return select;
+    }
+
     @NonNull
     @Override
     public ViewHolder<LayoutItemMoviePlayListBinding> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

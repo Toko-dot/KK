@@ -2,6 +2,7 @@ package com.ms.kk.widget;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.media.Image;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -20,6 +21,9 @@ import cn.jzvd.JzvdStd;
 public class MyJzvdStd extends JzvdStd {
     private long addTime;
     private float preX;
+    private ImageView ig_next;
+    private OnNextViewListener onNextViewListener;
+
 
     public MyJzvdStd(Context context) {
         super(context);
@@ -37,6 +41,18 @@ public class MyJzvdStd extends JzvdStd {
     @Override
     public void init(Context context) {
         super.init(context);
+
+        ig_next = ((ImageView) findViewById(R.id.ig_next));
+
+        ig_next.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onNextViewListener == null)
+                    return;
+                onNextViewListener.onNextVideo();
+            }
+        });
+
         ((CheckBox) findViewById(R.id.speed)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -185,5 +201,13 @@ public class MyJzvdStd extends JzvdStd {
     public void setScreenFullscreen() {
         super.setScreenFullscreen();
         batteryTimeLayout.setVisibility(GONE);
+    }
+
+    public void setOnNextViewListener(OnNextViewListener onNextViewListener) {
+        this.onNextViewListener = onNextViewListener;
+    }
+
+    public interface OnNextViewListener {
+        void onNextVideo();
     }
 }

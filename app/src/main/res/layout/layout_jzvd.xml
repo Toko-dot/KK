@@ -32,7 +32,17 @@
         android:background="@drawable/jz_bottom_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/ig_next"
+            android:layout_width="52.5dp"
+            android:layout_height="fill_parent"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_next_video" />
+
 
         <TextView
             android:id="@+id/current"

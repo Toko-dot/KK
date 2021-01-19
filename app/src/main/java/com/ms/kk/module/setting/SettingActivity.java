@@ -96,55 +96,60 @@ public class SettingActivity extends BaseActivity<SettingViewModel> {
             @Override
             public void run() {
                 try {
+                    for (int i = 6; i > 0; i--) {
+                        Document document = Jsoup.connect("https://www.hmtv.me/hanju/page/" + i).get();
+                        Elements elementsByClass = document.getElementsByClass("u-movie");
+                        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                            @Override
+                            public void log(String message) {
+                                Logger.logD(URLDecoder.decode(message));
+                            }
+                        });
+                        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+                        for (int k = elementsByClass.size() - 1; k >= 0; k--) {
+                            Element element = elementsByClass.get(k);
 
-                    Document document = Jsoup.connect("https://www.hmtv.me/zongyi").get();
+                            String brief = element.getElementsByTag("a").attr("href");
 
-                    Elements elementsByClass = document.getElementsByClass("u-movie");
-                    HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                        @Override
-                        public void log(String message) {
-                            Logger.logD(URLDecoder.decode(message));
-                        }
-                    });
-                    httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                            document = Jsoup.connect(brief).get();
 
-                    for (Element element : elementsByClass) {
+                            String name = document.getElementsByClass("video_img").get(0).getElementsByTag("img").get(0).attr("alt").replace("的海报", "");
+                            try {
+                                String url = "https://www.hmtv.me" + document.getElementsByClass("vlink").get(0).getElementsByTag("a").attr("href");
 
-                        String brief = element.getElementsByTag("a").attr("href");
+                                ArrayList<String> list = new ArrayList<>();
 
-                        document = Jsoup.connect(brief).get();
+                                parseDir(list, url);
 
-                        String name = document.getElementsByClass("video_img").get(0).getElementsByTag("img").get(0).attr("alt").replace("的海报", "");
-
-                        String url = "https://www.hmtv.me"+document.getElementsByClass("vlink").get(0).getElementsByTag("a").attr("href");
-
-                        ArrayList<String> list = new ArrayList<>();
-
-                        parseDir(list, url);
-
-                        for (int i = 0; i < list.size(); i++) {
-                            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                                    .addInterceptor(httpLoggingInterceptor)
-                                    .build();
-                            FormBody body = new FormBody.Builder()
-                                    .add("pName", name)
-                                    .add("name", (i + 1) > 10 ? "第" + (i + 1) + "集" : "第0" + (i + 1) + "集")
-                                    .add("play", list.get(i))
-                                    .add("thumb", "")
-                                    .build();
-                            Request request = new Request.Builder()
-                                    .url("http://111.229.83.8/api/movie/add")
-                                    .post(body)
-                                    .build();
-                            Response execute = okHttpClient.newCall(request).execute();
-                            if (!execute.isSuccessful()) {
+                                for (int j = 0; j < list.size(); j++) {
+                                    OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                                            .addInterceptor(httpLoggingInterceptor)
+                                            .build();
+                                    FormBody body = new FormBody.Builder()
+                                            .add("pName", name)
+                                            .add("name", (j + 1) >= 10 ? "第" + (j + 1) + "集" : "第0" + (j + 1) + "集")
+                                            .add("play", list.get(j))
+                                            .add("thumb", "")
+                                            .build();
+                                    Request request = new Request.Builder()
+                                            .url("http://111.229.83.8/api/movie/add")
+                                            .post(body)
+                                            .build();
+                                    Response execute = okHttpClient.newCall(request).execute();
+                                    if (!execute.isSuccessful()) {
+                                        break;
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                                 break;
                             }
+
+
                         }
 
                     }
-
                     Logger.logD("结束结束结束结束结束结束");
 
                 } catch (Exception e) {

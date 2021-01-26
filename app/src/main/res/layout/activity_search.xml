@@ -33,6 +33,7 @@
             android:background="@drawable/shape_home_search_bg"
             android:hint="@{vm.searchHot==null?@string/search_hint:vm.searchHot}"
             android:paddingHorizontal="15dp"
+            android:singleLine="true"
             android:text="@={vm.postSearch}"
             android:textColor="@color/color_000000"
             android:textSize="14sp"

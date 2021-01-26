@@ -219,6 +219,8 @@ public abstract class BaseActivity<VM extends BaseViewModel<?>> extends AppCompa
 
         sb_progress = ((SeekBar) view.findViewById(R.id.sb_progress));
 
+
+
         builder.setView(view);
 
         builder.setCancelable(false);

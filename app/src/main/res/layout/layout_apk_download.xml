@@ -28,12 +28,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-    <SeekBar
+    <com.ms.kk.widget.DownLoadSeekBar
         android:id="@+id/sb_progress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:clickable="false"
+        android:focusable="false"
+
         android:padding="0dp"
         android:thumb="@null"
         app:layout_constraintLeft_toLeftOf="parent"

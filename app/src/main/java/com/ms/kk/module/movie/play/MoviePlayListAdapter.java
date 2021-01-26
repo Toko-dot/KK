@@ -34,7 +34,7 @@ public class MoviePlayListAdapter extends BaseRVAdapter<MovieListItem, BaseRVAda
     protected void handleData(ViewHolder<LayoutItemMoviePlayListBinding> holder, MovieListItem movieListItem, int position) {
         holder.viewDataBinding.setMovie(movieListItem);
         if (position==select){
-            holder.viewDataBinding.tvName.setTextColor(mContext.getResources().getColor(R.color.color_0099FF));
+            holder.viewDataBinding.tvName.setTextColor(mContext.getResources().getColor(R.color.color_FF0000));
         }else {
             holder.viewDataBinding.tvName.setTextColor(mContext.getResources().getColor(R.color.color_777777));
         }

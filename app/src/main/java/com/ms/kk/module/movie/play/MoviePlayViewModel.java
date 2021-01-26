@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.ms.kk.base.BaseViewModel;
 import com.ms.kk.model.net.entity.respond.Comment;
 import com.ms.kk.model.net.entity.respond.DramaItem;
+import com.ms.kk.model.net.entity.respond.LoginInfo;
 import com.ms.kk.model.net.entity.respond.MovieListItem;
 
 import java.util.List;
@@ -183,6 +184,11 @@ public class MoviePlayViewModel extends BaseViewModel<MoviePlayRepository> {
         }
 
         repository.addComment(userInfo.get().getUid(), currentMovie.getValue().get_id(), postComment.get());
+    }
+
+    public void addFeedBack(String qa) {
+        LoginInfo loginInfo = userInfo.get();
+        repository.addFeedBack(loginInfo == null ? -1 : loginInfo.getUid(), qa);
     }
 
 

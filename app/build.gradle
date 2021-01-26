@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('F:\\Android\\KanKan\\kk.jks')
+            storePassword 'laiba123'
+            keyPassword 'laiba123'
+            keyAlias 'kk'
+        }
+    }
     compileSdkVersion 30
 
     defaultConfig {

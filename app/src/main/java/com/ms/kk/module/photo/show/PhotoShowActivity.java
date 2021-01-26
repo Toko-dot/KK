@@ -1,0 +1,16 @@
+package com.ms.kk.module.photo.show;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+import com.ms.kk.R;
+
+public class PhotoShowActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_photo_show);
+    }
+}

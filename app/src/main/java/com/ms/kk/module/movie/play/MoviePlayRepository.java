@@ -95,4 +95,13 @@ public class MoviePlayRepository extends BaseRepository {
         );
     }
 
+    public void addFeedBack(int uid,String qa){
+        addSource(commonApi.addFeedBack(uid,qa),new SimpleRepositoryObserver<Object>(){
+            @Override
+            protected void handleSuccess(BaseEntity<Object> data) {
+                super.handleSuccess(data);
+            }
+        });
+    }
+
 }

@@ -1,12 +1,14 @@
 package com.ms.kk.module.movie.play;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -253,5 +255,73 @@ public class MoviePlayActivity extends BaseActivity<MoviePlayViewModel> implemen
         binding.viewPlay.startVideo();
 
         viewModel.currentMovie.setValue(data);
+    }
+
+    public void onFeedBack(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        View layout = LayoutInflater.from(this).inflate(R.layout.layout_feed_back_movie, null);
+
+        builder.setView(layout);
+
+        AlertDialog alertDialog = builder.create();
+
+        ((TextView) layout.findViewById(R.id.tv_qa1)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DramaItem drama = MoviePlayActivity.this.drama;
+                StringBuilder sb = new StringBuilder();
+                sb.append("视频：" + drama.getName() + "\n");
+                sb.append("问题：无法播放");
+                viewModel.addFeedBack(sb.toString());
+                showToast("感谢反馈");
+
+                alertDialog.dismiss();
+            }
+        });
+
+        ((TextView) layout.findViewById(R.id.tv_qa2)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DramaItem drama = MoviePlayActivity.this.drama;
+                StringBuilder sb = new StringBuilder();
+                sb.append("视频：" + drama.getName() + "\n");
+                sb.append("问题：缺少集数");
+                viewModel.addFeedBack(sb.toString());
+                showToast("感谢反馈");
+
+                alertDialog.dismiss();
+            }
+        });
+
+        ((TextView) layout.findViewById(R.id.tv_qa3)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DramaItem drama = MoviePlayActivity.this.drama;
+                StringBuilder sb = new StringBuilder();
+                sb.append("视频：" + drama.getName() + "\n");
+                sb.append("问题：视频不对应");
+                viewModel.addFeedBack(sb.toString());
+                showToast("感谢反馈");
+                alertDialog.dismiss();
+            }
+        });
+
+
+        ((TextView) layout.findViewById(R.id.tv_qa4)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DramaItem drama = MoviePlayActivity.this.drama;
+                StringBuilder sb = new StringBuilder();
+                sb.append("视频：" + drama.getName() + "\n");
+                sb.append("问题：其它");
+                viewModel.addFeedBack(sb.toString());
+                showToast("感谢反馈");
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+
     }
 }

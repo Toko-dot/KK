@@ -96,4 +96,9 @@ public interface CommonApi {
     LiveData<ApiRespond<BaseEntity<Object>>> addMovie(@Field("pName") String pName, @Field("name") String name, @Field("play") String play,@Field("thumb")String thumb);
 
 
+    @POST("feedback/add")
+    @FormUrlEncoded
+    LiveData<ApiRespond<BaseEntity<Object>>> addFeedBack(@Field("uid") int uid, @Field("qa") String qa);
+
+
 }

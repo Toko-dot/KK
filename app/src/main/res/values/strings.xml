@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KK</string>
+    <string name="app_name">KK追剧</string>
     <string name="abc_login">登录</string>
     <string name="abc_register_account">创建新账号</string>
     <string name="abc_login_title">登录后更精彩</string>

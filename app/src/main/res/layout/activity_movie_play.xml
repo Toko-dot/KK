@@ -93,6 +93,7 @@
                     app:layout_constraintTop_toTopOf="@id/tv_drama"
                     app:layout_constraintBottom_toBottomOf="@id/tv_drama"
                     android:src="@drawable/ic_video_error"
+                    android:onClick="onFeedBack"
                     />
 
                 <androidx.recyclerview.widget.RecyclerView

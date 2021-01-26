@@ -19,6 +19,11 @@ public class AboutUsActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         binding = ((ActivityAboutUsBinding) DataBindingUtil.setContentView(this, R.layout.activity_about_us));
         binding.llHeader.tvTitle.setText("关于我们");
-
+        binding.llHeader.igBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

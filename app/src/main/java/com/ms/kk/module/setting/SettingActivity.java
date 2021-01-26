@@ -90,113 +90,20 @@ public class SettingActivity extends BaseActivity<SettingViewModel> {
         finish();
     }
 
+
+
     public void onAbout(View view) {
-//        startActivity(new Intent(this, AboutUsActivity.class));
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    for (int i = 6; i > 0; i--) {
-                        Document document = Jsoup.connect("https://www.hmtv.me/hanju/page/" + i).get();
-                        Elements elementsByClass = document.getElementsByClass("u-movie");
-                        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                            @Override
-                            public void log(String message) {
-                                Logger.logD(URLDecoder.decode(message));
-                            }
-                        });
-                        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-                        for (int k = elementsByClass.size() - 1; k >= 0; k--) {
-                            Element element = elementsByClass.get(k);
-
-                            String brief = element.getElementsByTag("a").attr("href");
-
-                            document = Jsoup.connect(brief).get();
-
-                            String name = document.getElementsByClass("video_img").get(0).getElementsByTag("img").get(0).attr("alt").replace("的海报", "");
-                            try {
-                                String url = "https://www.hmtv.me" + document.getElementsByClass("vlink").get(0).getElementsByTag("a").attr("href");
-
-                                ArrayList<String> list = new ArrayList<>();
-
-                                parseDir(list, url);
-
-                                for (int j = 0; j < list.size(); j++) {
-                                    OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                                            .addInterceptor(httpLoggingInterceptor)
-                                            .build();
-                                    FormBody body = new FormBody.Builder()
-                                            .add("pName", name)
-                                            .add("name", (j + 1) >= 10 ? "第" + (j + 1) + "集" : "第0" + (j + 1) + "集")
-                                            .add("play", list.get(j))
-                                            .add("thumb", "")
-                                            .build();
-                                    Request request = new Request.Builder()
-                                            .url("http://111.229.83.8/api/movie/add")
-                                            .post(body)
-                                            .build();
-                                    Response execute = okHttpClient.newCall(request).execute();
-                                    if (!execute.isSuccessful()) {
-                                        break;
-                                    }
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                break;
-                            }
-
-
-                        }
-
-                    }
-                    Logger.logD("结束结束结束结束结束结束");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();
+        startActivity(new Intent(this, AboutUsActivity.class));
     }
+
+
 
     public void onChat(View view) {
         SystemUtils.joinQQ(this, "2479024161");
     }
 
-    public void parseDir(List<String> list, String url) {
-        try {
-            Document document = Jsoup.connect(url).get();
-
-            Elements elements = document.getElementsByClass("tab").get(0).getElementsByTag("a");
-
-            for (Element element : elements) {
-                parse(list, "https://www.hmtv.me" + element.attr("href"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
-    public void parse(List<String> list, String url) {
-        try {
-            Document document = Jsoup.connect(url).get();
-
-            String text = document.getElementsByClass("content").get(0).getElementsByTag("script").get(0).html();
-
-            String[] split = text.split(",");
-
-            String play = split[1].split("=")[1];
-            if (!TextUtils.isEmpty(play) && play.contains(".m3u8")) {
-                play = play.substring(1, play.length() - 1);
-                list.add(play);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static class MovieSource {
         private String pName;

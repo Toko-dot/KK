@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:orientation="horizontal"
-            android:background="@color/color_FFFFFF"
+            android:background="@drawable/layer_main_bottom_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
